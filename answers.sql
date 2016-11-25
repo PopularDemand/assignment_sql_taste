@@ -1,3 +1,8 @@
+############################## BASIC
+
+############################
+HOUSING
+
 year  month month_name  south west  midwest northeast
 
 -- 1
@@ -62,7 +67,7 @@ SELECT
 
 
 ############################
--- BILLBOARD TOP 100
+BILLBOARD
 
 -- 1
 SELECT *
@@ -92,23 +97,23 @@ SELECT song_name
   WHERE year BETWEEN 1960 AND 1969 AND
   year_rank IN (1, 2, 3)
 
---6 
+--6
 SELECT *
   FROM tutorial.billboard_top_100_year_end
-  WHERE artist ILIKE 'Elvis %' OR 
+  WHERE artist ILIKE 'Elvis %' OR
   artist ILIKE 'The Rolling Stones' OR
-  artist ILIKE 'Van Halen' 
+  artist ILIKE 'Van Halen'
 
 SELECT *
   FROM tutorial.billboard_top_100_year_end
   WHERE artist IN ('Van Halen', 'The Rolling Stones', 'Elvis Presley')
 
---7 
+--7
 
 SELECT "artist", COUNT(*)
   FROM tutorial.billboard_top_100_year_end
   GROUP BY "artist" ORDER BY COUNT(*) DESC
-  LIMIT 3 
+  LIMIT 3
 
 --8
 
@@ -120,13 +125,64 @@ SELECT "artist", COUNT(*)
 --9
 SELECT *
   FROM tutorial.billboard_top_100_year_end
-  WHERE year = 1970 AND 
-  year_rank BETWEEN 10 AND 20  
-  
+  WHERE year = 1970 AND
+  year_rank BETWEEN 10 AND 20
+
 
 --10
 SELECT *
   FROM tutorial.billboard_top_100_year_end
-  WHERE year BETWEEN 1990 AND 1999  
+  WHERE year BETWEEN 1990 AND 1999
   AND NOT (artist = 'Madonna' AND year_rank BETWEEN 10 AND 100)
 
+--11
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year = 1985
+  AND "group" NOT ILIKE '%madonna%'
+  AND "group" NOT ILIKE '%phil collins%'
+
+--12
+SELECT song_name
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year_rank = 1
+
+--13
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist IS NULL
+
+--14
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist ILIKE '%madonna%'
+  ORDER BY year_rank
+
+--15
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist ILIKE '%madonna%'
+  ORDER BY year, year_rank
+
+--16
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year >= 1990 AND year_rank IN (1, 2, 3)
+  ORDER BY year_rank, year
+
+############################## INTERMEDIATE
+
+############################
+BILLBOARD
+
+--1
+SELECT MIN(year_rank)
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist ILIKE '%phil collins%'
+
+--2
+SELECT AVG(year_rank)
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist ILIKE '%michael jackson%'
+
+--3
