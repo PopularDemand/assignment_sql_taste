@@ -243,3 +243,32 @@ SELECT AVG((high + low) / 2) AS price, AVG(volume) AS volume, month
   FROM tutorial.aapl_historical_stock_price
   GROUP BY month
   ORDER BY month
+
+-- 7
+SELECT AVG((high + low) / 2) AS price, month, year
+  FROM tutorial.aapl_historical_stock_price
+  GROUP BY year, month
+  ORDER BY year DESC, month ASC
+
+--8
+SELECT AVG((high + low) / 2) AS price
+  FROM tutorial.aapl_historical_stock_price
+WHERE volume > 25000000
+
+--9
+SELECT AVG(volume) AS volume, AVG((low + high) /2) AS average, month
+  FROM tutorial.aapl_historical_stock_price
+  GROUP BY month
+  HAVING AVG(volume) > 10000000
+  ORDER BY month
+
+--10
+SELECT MAX(high) AS highest, MIN(low) AS lowest, year
+  FROM tutorial.aapl_historical_stock_price
+  WHERE year BETWEEN 2005 AND 2010
+  GROUP BY year
+  ORDER BY year
+
+--11
+
+--12
