@@ -173,7 +173,7 @@ SELECT *
 ############################## INTERMEDIATE
 
 ############################
-BILLBOARD
+-- BILLBOARD
 
 --1
 SELECT MIN(year_rank)
@@ -186,3 +186,60 @@ SELECT AVG(year_rank)
   WHERE artist ILIKE '%michael jackson%'
 
 --3
+SELECT AVG(year_rank)
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year_rank <= 10 AND
+   artist ILIKE '%madonna%'
+
+--4
+SELECT artist, COUNT(*) AS count
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year >= 1985
+  GROUP BY artist
+  ORDER BY COUNT(*) DESC
+  LIMIT 10
+
+--5
+SELECT artist, COUNT(*) AS count
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist IN ('Elvis Presley', 'Madonna', 'Beatles', 'Elton John')
+  AND year_rank <= 10
+  GROUP BY artist
+
+############################
+-- APPLE
+-- date  year  month open  high  low close volume  id
+
+-- 1
+SELECT *
+  FROM tutorial.aapl_historical_stock_price
+  WHERE high - low > 5
+
+-- 2
+SELECT MAX (high - low)
+  FROM tutorial.aapl_historical_stock_price
+  WHERE year = 2012
+
+-- 3
+SELECT AVG(((high + low) / 2))
+  FROM tutorial.aapl_historical_stock_price
+  WHERE volume > 10000000 
+
+-- 4
+SELECT COUNT(date), month
+  FROM tutorial.aapl_historical_stock_price
+  WHERE year = 2012
+  GROUP BY month
+  ORDER BY month -- optional
+
+-- 5
+SELECT MAX(high), year
+  FROM tutorial.aapl_historical_stock_price
+  GROUP BY year
+  ORDER BY year -- optional
+
+-- 6
+SELECT AVG((high + low) / 2) AS price, AVG(volume) AS volume, month
+  FROM tutorial.aapl_historical_stock_price
+  GROUP BY month
+  ORDER BY month
